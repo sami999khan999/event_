@@ -15,6 +15,6 @@ export const eventFormSchema = z.object({
   endDateTime: z.date(),
   categoryId: z.string(),
   price: z.string(),
-  idFree: z.boolean(),
+  isFree: z.boolean(),
   url: z.string().url(),
 });
