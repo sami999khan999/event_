@@ -11,7 +11,12 @@ const FileUploader = ({
   onFileChange,
   setFiles,
 }: FileUploadProps) => {
-  return <div>FileUploader</div>;
+  return (
+    <div>
+      FileUploader
+      <div></div>
+    </div>
+  );
 };
 
 export default FileUploader;
