@@ -80,7 +80,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full ">
                 <FormControl>
                   <Dropdown
-                    onChangeHandeler={field.onChange}
+                    onChangeHandler={field.onChange}
                     value={field.value}
                   />
                 </FormControl>
