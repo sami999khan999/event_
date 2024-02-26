@@ -42,13 +42,13 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   };
 
   useEffect(() => {
-    const getCategroies = async () => {
-      const categroyList = await getAllCategories();
+    const getCategories = async () => {
+      const categoryList = await getAllCategories();
 
-      categroyList && setCategories(categroyList as ICategory[]);
+      categoryList && setCategories(categoryList as ICategory[]);
     };
 
-    getCategroies();
+    getCategories();
   }, []);
 
   return (
@@ -70,7 +70,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
 
         <AlertDialog>
           <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">
-            Add new categroy
+            Add new category
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-white">
             <AlertDialogHeader>
@@ -87,7 +87,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                onChange={() => startTransition(handleAddCategory)}
+                onClick={() => startTransition(handleAddCategory)}
               >
                 Add
               </AlertDialogAction>
