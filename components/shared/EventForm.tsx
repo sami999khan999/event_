@@ -24,20 +24,30 @@ import { useState } from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Date } from "mongoose";
 import { Checkbox } from "../ui/checkbox";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useRouter } from "next/navigation";
-import { createEvent } from "@/lib/actions/events.actions";
+import { createEvent, updateEvent } from "@/lib/actions/events.actions";
+import { IEvent } from "@/lib/database/models/event.model";
 
 type EventFormProps = {
   userId: string;
   type: "Create" | "Update";
+  event?: IEvent;
+  eventId?: string;
 };
 
-const EventForm = ({ userId, type }: EventFormProps) => {
+const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const initialValues = eventDefaultValues;
+  const initialValues =
+    event && type === "Update"
+      ? {
+          ...event,
+          startDateTime: new Date(event.startDateTime),
+          endDateTime: new Date(event.endDateTime),
+        }
+      : eventDefaultValues;
+
   const router = useRouter();
 
   const { startUpload } = useUploadThing("imageUploader");
@@ -48,7 +58,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    let uploadedImageUrl = values.imageurl;
+    let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
       const uploadedImages = await startUpload(files);
@@ -74,6 +84,26 @@ const EventForm = ({ userId, type }: EventFormProps) => {
       } catch (error) {
         console.log(error);
       }
+    }
+
+    if (type === "Update") {
+      if (!eventId) {
+        router.back();
+        return;
+      }
+
+      try {
+        const updatedEvent = await updateEvent({
+          userId,
+          path: `/event/${eventId}`,
+          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
+        });
+
+        if (updatedEvent) {
+          form.reset();
+          router.push(`/events/${updatedEvent._id}`);
+        }
+      } catch (error) {}
     }
   }
 
@@ -138,7 +168,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
 
           <FormField
             control={form.control}
-            name="imageurl"
+            name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full ">
                 <FormControl className="h-72 ">
