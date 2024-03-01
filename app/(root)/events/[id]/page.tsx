@@ -15,10 +15,12 @@ const EventDetails = async ({
 }: SearchParamProps) => {
   const event = await getEventById(id);
 
+  const relatedPage = Number(searchParams?.relatedPage) || 1;
+
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
     eventId: event._id,
-    page: searchParams.page as string,
+    page: relatedPage,
   });
 
   return (
@@ -69,7 +71,7 @@ const EventDetails = async ({
                     {" - "}
                     {formatDateTime(event.startDateTime).timeOnly}
                   </p>
-                  <p>
+                  <p className="pl-2">
                     {formatDateTime(event.endDateTime).dateOnly}
                     {" - "}
                     {formatDateTime(event.endDateTime).timeOnly}
@@ -106,7 +108,8 @@ const EventDetails = async ({
           emptyStateSubtext="Come back later"
           collectionType="All_Events"
           limit={3}
-          page={searchParams.page as string}
+          page={relatedPage}
+          urlParamName="relatedPage"
           totalPages={relatedEvents?.totalPages}
         />
       </section>

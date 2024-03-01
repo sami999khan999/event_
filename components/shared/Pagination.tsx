@@ -7,19 +7,19 @@ import { formUrlQuery } from "@/lib/utils";
 
 type PaginationProps = {
   page: number | string;
-  totalPages?: number;
+  totalPages: number;
   urlParamName?: string;
 };
 
 const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
   const router = useRouter();
-  const searchParames = useSearchParams();
+  const searchParams = useSearchParams();
 
   const onClick = (btnType: string) => {
     const pageValue = btnType === "next" ? Number(page) + 1 : Number(page) - 1;
 
     const newUrl = formUrlQuery({
-      params: searchParames.toString(),
+      params: searchParams.toString(),
       key: urlParamName || "page",
       value: pageValue.toString(),
     });
@@ -31,8 +31,8 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
     <div className="flex gap-2">
       <Button
         size="lg"
-        variant={"outline"}
-        className="w-18"
+        variant="outline"
+        className="w-28"
         onClick={() => onClick("prev")}
         disabled={Number(page) <= 1}
       >
@@ -40,10 +40,10 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
       </Button>
       <Button
         size="lg"
-        variant={"outline"}
-        className="w-18"
+        variant="outline"
+        className="w-28"
         onClick={() => onClick("next")}
-        disabled={Number(page) >= totalPages!}
+        disabled={Number(page) >= totalPages}
       >
         Next
       </Button>
