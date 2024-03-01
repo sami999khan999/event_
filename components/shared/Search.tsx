@@ -7,7 +7,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 const Search = ({
-  placeholder = "Search Title...",
+  placeholder = "Search title...",
 }: {
   placeholder?: string;
 }) => {
