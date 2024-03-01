@@ -2,6 +2,7 @@ import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
 import { getEventsByUser } from "@/lib/actions/events.actions";
 import { getOrdersByUser } from "@/lib/actions/order.actions";
+import { IEvent } from "@/lib/database/models/event.model";
 import { IOrder } from "@/lib/database/models/order.model";
 import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
@@ -18,10 +19,18 @@ const page = async ({ searchParams }: SearchParamProps) => {
 
   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
 
+  // let orderedEvents = rowEvents.filter(
+  //   (item: IEvent) => item !== null && item !== undefined
+  // );
+
   const organizedEvents = await getEventsByUser({
     userId,
     page: eventsPage,
   });
+
+  console.log(orderedEvents);
+  console.log("====================================");
+  console.log(orders);
 
   return (
     <>

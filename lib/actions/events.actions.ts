@@ -16,6 +16,7 @@ import {
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
 } from "@/types";
+import Order from "../database/models/order.model";
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: "i" } });
@@ -96,6 +97,7 @@ export async function deleteEvent({ eventId, path }: DeleteEventParams) {
     await connectToDatabase();
 
     const deletedEvent = await Event.findByIdAndDelete(eventId);
+    const deveteOrder = await Order.findOneAndDelete({ event: eventId });
     if (deletedEvent) revalidatePath(path);
   } catch (error) {
     handleError(error);
