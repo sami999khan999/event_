@@ -22,7 +22,3 @@ Evently is a versatile event organization website designed to simplify the proce
 - **React Hook Form**: Flexible and efficient form validation.
 - **Zod**: Runtime type checking for JavaScript.
 - And more...
-
-## Installation
-
-1. Clone the repository:
