@@ -1,6 +1,6 @@
 # Evently
 
-Evently is a versatile event organization website designed to simplify the process of planning, managing, and promoting events of all sizes. Whether you're organizing a corporate conference, a community fundraiser, or a music festival, Evently provides a comprehensive suite of tools to streamline every aspect of event planning
+Evently is a versatile event organization website designed to simplify the process of planning, managing, and promoting events of all sizes. Whether you're organizing a corporate conference, a community fundraiser, or a music festival, Evently provides a comprehensive suite of tools to streamline every aspect of event planning.
 
 ## Features
 
